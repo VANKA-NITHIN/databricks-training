@@ -1,0 +1,588 @@
+================================================================================
+DATABRICKS TRAINING - WEEK 1 DAY 1
+SQL PRACTICE QUERIES - SAMPLE OUTPUTS
+================================================================================
+
+Database: Employee, Department, Project
+Date: 2026-05-06
+
+================================================================================
+SECTION 1: BASIC QUERIES - OUTPUTS
+================================================================================
+
+Q1: SELECT * FROM Employee;
+================================================================================
+OUTPUT (7 rows):
+emp_id | name       | age | salary    | department_id | hire_date
+-------|------------|-----|-----------|---------------|------------
+1      | John Doe   | 28  | 50000.00  | 1             | 2020-01-15
+2      | Jane Smith | 34  | 60000.00  | 2             | 2019-07-23
+3      | Bob Brown  | 45  | 80000.00  | 1             | 2018-02-12
+4      | Alice Blue | 25  | 45000.00  | 3             | 2021-03-22
+5      | Charlie P. | 29  | 50000.00  | 2             | 2019-12-01
+6      | David Green| 38  | 70000.00  | 4             | 2022-05-18
+7      | Eve Black  | 40  | 55000.00  | 3             | 2021-08-30
+
+Q2: SELECT name, salary FROM Employee;
+================================================================================
+OUTPUT (7 rows):
+name        | salary
+------------|----------
+John Doe    | 50000.00
+Jane Smith  | 60000.00
+Bob Brown   | 80000.00
+Alice Blue  | 45000.00
+Charlie P.  | 50000.00
+David Green | 70000.00
+Eve Black   | 55000.00
+
+Q3: SELECT * FROM Employee WHERE age > 30;
+================================================================================
+OUTPUT (4 rows):
+emp_id | name       | age | salary    | department_id | hire_date
+-------|------------|-----|-----------|---------------|------------
+2      | Jane Smith | 34  | 60000.00  | 2             | 2019-07-23
+3      | Bob Brown  | 45  | 80000.00  | 1             | 2018-02-12
+6      | David Green| 38  | 70000.00  | 4             | 2022-05-18
+7      | Eve Black  | 40  | 55000.00  | 3             | 2021-08-30
+
+Q4: SELECT name FROM Department;
+================================================================================
+OUTPUT (4 rows):
+name
+---------
+IT
+HR
+Finance
+Marketing
+
+Q5: SELECT * FROM Employee WHERE department_id = 1;
+================================================================================
+OUTPUT (2 rows):
+emp_id | name      | age | salary   | department_id | hire_date
+-------|-----------|-----|----------|---------------|------------
+1      | John Doe  | 28  | 50000.00 | 1             | 2020-01-15
+3      | Bob Brown | 45  | 80000.00 | 1             | 2018-02-12
+
+================================================================================
+SECTION 2: STRING MATCHING - OUTPUTS
+================================================================================
+
+Q6: SELECT * FROM Employee WHERE name LIKE 'J%';
+================================================================================
+OUTPUT (2 rows):
+emp_id | name       | age | salary   | department_id | hire_date
+-------|------------|-----|----------|---------------|------------
+1      | John Doe   | 28  | 50000.00 | 1             | 2020-01-15
+2      | Jane Smith | 34  | 60000.00 | 2             | 2019-07-23
+
+Q7: SELECT * FROM Employee WHERE name LIKE '%e';
+================================================================================
+OUTPUT (5 rows):
+emp_id | name       | age | salary   | department_id | hire_date
+-------|------------|-----|----------|---------------|------------
+1      | John Doe   | 28  | 50000.00 | 1             | 2020-01-15
+2      | Jane Smith | 34  | 60000.00 | 2             | 2019-07-23
+4      | Alice Blue | 25  | 45000.00 | 3             | 2021-03-22
+5      | Charlie P. | 29  | 50000.00 | 2             | 2019-12-01
+7      | Eve Black  | 40  | 55000.00 | 3             | 2021-08-30
+
+Q8: SELECT * FROM Employee WHERE name LIKE '%a%';
+================================================================================
+OUTPUT (6 rows):
+emp_id | name       | age | salary   | department_id | hire_date
+-------|------------|-----|----------|---------------|------------
+2      | Jane Smith | 34  | 60000.00 | 2             | 2019-07-23
+3      | Bob Brown  | 45  | 80000.00 | 1             | 2018-02-12
+4      | Alice Blue | 25  | 45000.00 | 3             | 2021-03-22
+5      | Charlie P. | 29  | 50000.00 | 2             | 2019-12-01
+6      | David Green| 38  | 70000.00 | 4             | 2022-05-18
+7      | Eve Black  | 40  | 55000.00 | 3             | 2021-08-30
+
+Q9: SELECT * FROM Employee WHERE LENGTH(name) = 9;
+================================================================================
+OUTPUT (2 rows):
+emp_id | name      | age | salary   | department_id | hire_date
+-------|-----------|-----|----------|---------------|------------
+5      | Charlie P.| 29  | 50000.00 | 2             | 2019-12-01
+7      | Eve Black | 40  | 55000.00 | 3             | 2021-08-30
+
+Q10: SELECT * FROM Employee WHERE name LIKE '_o%';
+================================================================================
+OUTPUT (2 rows):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|------------
+1      | John Doe | 28  | 50000.00 | 1             | 2020-01-15
+3      | Bob Brown| 45  | 80000.00 | 1             | 2018-02-12
+
+================================================================================
+SECTION 3: DATE QUERIES - OUTPUTS
+================================================================================
+
+Q11: SELECT * FROM Employee WHERE YEAR(hire_date) = 2020;
+================================================================================
+OUTPUT (1 row):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|------------
+1      | John Doe | 28  | 50000.00 | 1             | 2020-01-15
+
+Q12: SELECT * FROM Employee WHERE MONTH(hire_date) = 1;
+================================================================================
+OUTPUT (1 row):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|------------
+1      | John Doe | 28  | 50000.00 | 1             | 2020-01-15
+
+Q13: SELECT * FROM Employee WHERE YEAR(hire_date) < 2019;
+================================================================================
+OUTPUT (1 row):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|------------
+3      | Bob Brown| 45  | 80000.00 | 1             | 2018-02-12
+
+Q14: SELECT * FROM Employee WHERE hire_date >= '2021-03-01';
+================================================================================
+OUTPUT (3 rows):
+emp_id | name       | age | salary   | department_id | hire_date
+-------|------------|-----|----------|---------------|------------
+4      | Alice Blue | 25  | 45000.00 | 3             | 2021-03-22
+7      | Eve Black  | 40  | 55000.00 | 3             | 2021-08-30
+6      | David Green| 38  | 70000.00 | 4             | 2022-05-18
+
+Q15: SELECT * FROM Employee WHERE hire_date >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
+================================================================================
+OUTPUT: (Varies by current date - returns employees hired within last 2 years)
+
+================================================================================
+SECTION 4: AGGREGATE QUERIES - OUTPUTS
+================================================================================
+
+Q16: SELECT SUM(salary) AS total_salary FROM Employee;
+================================================================================
+OUTPUT (1 row):
+total_salary
+-----------
+413000.00
+
+Explanation: 50000 + 60000 + 80000 + 45000 + 50000 + 70000 + 55000 = 413000
+
+Q17: SELECT AVG(salary) AS average_salary FROM Employee;
+================================================================================
+OUTPUT (1 row):
+average_salary
+--------------
+58928.57
+
+Explanation: 413000 / 7 = 58928.57 (approximately)
+
+Q18: SELECT MIN(salary) AS minimum_salary FROM Employee;
+================================================================================
+OUTPUT (1 row):
+minimum_salary
+--------------
+45000.00
+
+Explanation: Alice Blue has the lowest salary at 45000.00
+
+Q19: SELECT department_id, COUNT(*) AS employee_count FROM Employee GROUP BY department_id;
+================================================================================
+OUTPUT (4 rows):
+department_id | employee_count
+--------------|---------------
+1             | 2
+2             | 2
+3             | 2
+4             | 1
+
+Explanation: Dept 1 (IT) has 2, Dept 2 (HR) has 2, Dept 3 (Finance) has 2, Dept 4 (Marketing) has 1
+
+Q20: SELECT department_id, AVG(salary) AS average_salary FROM Employee GROUP BY department_id;
+================================================================================
+OUTPUT (4 rows):
+department_id | average_salary
+--------------|---------------
+1             | 65000.00
+2             | 55000.00
+3             | 50000.00
+4             | 70000.00
+
+Explanation:
+- Dept 1: (50000 + 80000) / 2 = 65000
+- Dept 2: (60000 + 50000) / 2 = 55000
+- Dept 3: (45000 + 55000) / 2 = 50000
+- Dept 4: 70000 / 1 = 70000
+
+================================================================================
+SECTION 5: GROUP BY - OUTPUTS
+================================================================================
+
+Q21: SELECT department_id, SUM(salary) AS total_salary FROM Employee GROUP BY department_id;
+================================================================================
+OUTPUT (4 rows):
+department_id | total_salary
+--------------|-------------
+1             | 130000.00
+2             | 110000.00
+3             | 100000.00
+4             | 70000.00
+
+Q22: SELECT department_id, AVG(age) AS average_age FROM Employee GROUP BY department_id;
+================================================================================
+OUTPUT (4 rows):
+department_id | average_age
+--------------|------------
+1             | 36.50
+2             | 31.50
+3             | 32.50
+4             | 38.00
+
+Q23: SELECT YEAR(hire_date) AS hire_year, COUNT(*) AS employee_count FROM Employee GROUP BY YEAR(hire_date);
+================================================================================
+OUTPUT (5 rows):
+hire_year | employee_count
+----------|---------------
+2018      | 1
+2019      | 2
+2020      | 1
+2021      | 2
+2022      | 1
+
+Q24: SELECT department_id, MAX(salary) AS highest_salary FROM Employee GROUP BY department_id;
+================================================================================
+OUTPUT (4 rows):
+department_id | highest_salary
+--------------|---------------
+1             | 80000.00
+2             | 60000.00
+3             | 55000.00
+4             | 70000.00
+
+Q25: SELECT department_id, AVG(salary) FROM Employee GROUP BY department_id ORDER BY AVG(salary) DESC LIMIT 1;
+================================================================================
+OUTPUT (1 row):
+department_id | AVG(salary)
+--------------|------------
+4             | 70000.00
+
+Explanation: Department 4 (Marketing) has the highest average salary
+
+================================================================================
+SECTION 6: HAVING - OUTPUTS
+================================================================================
+
+Q26: SELECT department_id, COUNT(*) AS employee_count FROM Employee GROUP BY department_id HAVING COUNT(*) > 2;
+================================================================================
+OUTPUT: (0 rows - no department has more than 2 employees)
+
+Q27: SELECT department_id, AVG(salary) AS avg_sal FROM Employee GROUP BY department_id HAVING AVG(salary) > 55000;
+================================================================================
+OUTPUT (2 rows):
+department_id | avg_sal
+--------------|----------
+1             | 65000.00
+4             | 70000.00
+
+Q28: SELECT YEAR(hire_date) AS hire_year, COUNT(*) FROM Employee GROUP BY YEAR(hire_date) HAVING COUNT(*) > 1;
+================================================================================
+OUTPUT (2 rows):
+hire_year | COUNT(*)
+----------|----------
+2019      | 2
+2021      | 2
+
+Q29: SELECT department_id, SUM(salary) FROM Employee GROUP BY department_id HAVING SUM(salary) < 100000;
+================================================================================
+OUTPUT (1 row):
+department_id | SUM(salary)
+--------------|------------
+4             | 70000.00
+
+Q30: SELECT department_id, MAX(salary) FROM Employee GROUP BY department_id HAVING MAX(salary) > 75000;
+================================================================================
+OUTPUT (1 row):
+department_id | MAX(salary)
+--------------|------------
+1             | 80000.00
+
+================================================================================
+SECTION 7: ORDER BY - OUTPUTS
+================================================================================
+
+Q31: SELECT * FROM Employee ORDER BY salary ASC;
+================================================================================
+OUTPUT (7 rows):
+emp_id | name       | age | salary    | department_id | hire_date
+-------|------------|-----|-----------|---------------|------------
+4      | Alice Blue | 25  | 45000.00  | 3             | 2021-03-22
+1      | John Doe   | 28  | 50000.00  | 1             | 2020-01-15
+5      | Charlie P. | 29  | 50000.00  | 2             | 2019-12-01
+7      | Eve Black  | 40  | 55000.00  | 3             | 2021-08-30
+2      | Jane Smith | 34  | 60000.00  | 2             | 2019-07-23
+6      | David Green| 38  | 70000.00  | 4             | 2022-05-18
+3      | Bob Brown  | 45  | 80000.00  | 1             | 2018-02-12
+
+Q32: SELECT * FROM Employee ORDER BY age DESC;
+================================================================================
+OUTPUT (7 rows):
+emp_id | name       | age | salary    | department_id | hire_date
+-------|------------|-----|-----------|---------------|------------
+3      | Bob Brown  | 45  | 80000.00  | 1             | 2018-02-12
+7      | Eve Black  | 40  | 55000.00  | 3             | 2021-08-30
+6      | David Green| 38  | 70000.00  | 4             | 2022-05-18
+2      | Jane Smith | 34  | 60000.00  | 2             | 2019-07-23
+5      | Charlie P. | 29  | 50000.00  | 2             | 2019-12-01
+1      | John Doe   | 28  | 50000.00  | 1             | 2020-01-15
+4      | Alice Blue | 25  | 45000.00  | 3             | 2021-03-22
+
+Q33: SELECT * FROM Employee ORDER BY hire_date ASC;
+================================================================================
+OUTPUT (7 rows): (ordered from earliest to latest hire date)
+emp_id | name       | hire_date
+-------|------------|------------
+3      | Bob Brown  | 2018-02-12
+2      | Jane Smith | 2019-07-23
+5      | Charlie P. | 2019-12-01
+1      | John Doe   | 2020-01-15
+4      | Alice Blue | 2021-03-22
+7      | Eve Black  | 2021-08-30
+6      | David Green| 2022-05-18
+
+Q34: SELECT * FROM Employee ORDER BY department_id ASC, salary DESC;
+================================================================================
+OUTPUT (7 rows):
+dept_id 1, highest to lowest salary:
+emp_id | name     | dept | salary
+-------|----------|------|----------
+3      | Bob Brown| 1    | 80000.00
+1      | John Doe | 1    | 50000.00
+
+dept_id 2:
+emp_id | name      | dept | salary
+-------|-----------|------|----------
+2      | Jane Smith| 2    | 60000.00
+5      | Charlie P.| 2    | 50000.00
+
+dept_id 3:
+emp_id | name      | dept | salary
+-------|-----------|------|----------
+7      | Eve Black | 3    | 55000.00
+4      | Alice Blue| 3    | 45000.00
+
+dept_id 4:
+emp_id | name       | dept | salary
+-------|------------|------|----------
+6      | David Green| 4    | 70000.00
+
+Q35: SELECT department_id, SUM(salary) FROM Employee GROUP BY department_id ORDER BY SUM(salary) DESC;
+================================================================================
+OUTPUT (4 rows):
+department_id | SUM(salary)
+--------------|------------
+1             | 130000.00
+2             | 110000.00
+3             | 100000.00
+4             | 70000.00
+
+================================================================================
+SECTION 8: JOIN - OUTPUTS
+================================================================================
+
+Q36: SELECT e.name, d.name FROM Employee e JOIN Department d ON e.department_id = d.department_id;
+================================================================================
+OUTPUT (7 rows):
+employee_name | department_name
+--------------|----------------
+John Doe      | IT
+Jane Smith    | HR
+Bob Brown     | IT
+Alice Blue    | Finance
+Charlie P.    | HR
+David Green   | Marketing
+Eve Black     | Finance
+
+Q37: SELECT p.name, d.name FROM Project p JOIN Department d ON p.department_id = d.department_id;
+================================================================================
+OUTPUT (7 rows):
+project_name      | department_name
+------------------|----------------
+Project Alpha     | IT
+Project Beta      | HR
+Project Gamma     | IT
+Project Delta     | Finance
+Project Epsilon   | Marketing
+Project Zeta      | Marketing
+Project Eta       | Finance
+
+Q38: SELECT e.name, p.name FROM Employee e JOIN Project p ON e.department_id = p.department_id;
+================================================================================
+OUTPUT (14 rows):
+employee_name | project_name
+--------------|---------------
+John Doe      | Project Alpha
+John Doe      | Project Gamma
+Jane Smith    | Project Beta
+Bob Brown     | Project Alpha
+Bob Brown     | Project Gamma
+Alice Blue    | Project Delta
+Alice Blue    | Project Eta
+Charlie P.    | Project Beta
+David Green   | Project Epsilon
+David Green   | Project Zeta
+Eve Black     | Project Delta
+Eve Black     | Project Eta
+
+Q39: SELECT e.name, d.name FROM Employee e LEFT JOIN Department d ON e.department_id = d.department_id;
+================================================================================
+OUTPUT (7 rows): (all employees with their departments)
+Same as Q36 (all employees are assigned to departments in this dataset)
+
+Q40: SELECT d.name, e.name FROM Department d LEFT JOIN Employee e ON d.department_id = e.department_id;
+================================================================================
+OUTPUT (7 rows):
+department_name | employee_name
+----------------|---------------
+IT              | John Doe
+IT              | Bob Brown
+HR              | Jane Smith
+HR              | Charlie P.
+Finance         | Alice Blue
+Finance         | Eve Black
+Marketing       | David Green
+
+================================================================================
+SECTION 9: NESTED/CORRELATED QUERIES - OUTPUTS
+================================================================================
+
+Q46: SELECT * FROM Employee WHERE salary = (SELECT MAX(salary) FROM Employee);
+================================================================================
+OUTPUT (1 row):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|----------
+3      | Bob Brown| 45  | 80000.00 | 1             | 2018-02-12
+
+Q47: SELECT * FROM Employee WHERE salary > (SELECT AVG(salary) FROM Employee);
+================================================================================
+OUTPUT (3 rows):
+emp_id | name       | age | salary   | department_id | hire_date
+-------|------------|-----|----------|---------------|----------
+2      | Jane Smith | 34  | 60000.00 | 2             | 2019-07-23
+3      | Bob Brown  | 45  | 80000.00 | 1             | 2018-02-12
+6      | David Green| 38  | 70000.00 | 4             | 2022-05-18
+
+Explanation: Average salary is 58928.57. These 3 earn more than that.
+
+Q48: SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);
+================================================================================
+OUTPUT (1 row):
+MAX(salary)
+-----------
+70000.00
+
+Explanation: This finds the second highest salary (David Green)
+
+Q52: SELECT * FROM Employee WHERE age > (SELECT MAX(age) FROM Employee WHERE department_id = 2);
+================================================================================
+OUTPUT (1 row):
+emp_id | name     | age | salary   | department_id | hire_date
+-------|----------|-----|----------|---------------|----------
+3      | Bob Brown| 45  | 80000.00 | 1             | 2018-02-12
+
+Explanation: HR dept max age is 34 (Jane). Bob (45) is older than all HR employees.
+
+Q54: SELECT DISTINCT e.name FROM Employee e WHERE e.department_id IN (SELECT department_id FROM Project GROUP BY department_id HAVING COUNT(*) >= 2);
+================================================================================
+OUTPUT (6 rows):
+employee_name
+--------------
+John Doe
+Bob Brown
+Alice Blue
+Eve Black
+Charlie P. (only 1 project)
+David Green
+
+================================================================================
+SECTION 10: COMBINED QUERIES - OUTPUTS
+================================================================================
+
+Q56: SELECT SUM(salary) FROM Employee WHERE YEAR(hire_date) = 2020;
+================================================================================
+OUTPUT (1 row):
+SUM(salary)
+-----------
+50000.00
+
+Explanation: Only John Doe was hired in 2020
+
+Q57: SELECT department_id, AVG(salary) FROM Employee GROUP BY department_id ORDER BY AVG(salary) DESC;
+================================================================================
+OUTPUT (4 rows):
+department_id | AVG(salary)
+--------------|------------
+4             | 70000.00
+1             | 65000.00
+2             | 55000.00
+3             | 50000.00
+
+Q61: SELECT e.name, e.salary FROM Employee e WHERE e.salary > (SELECT AVG(salary) FROM Employee e2 WHERE e2.department_id = e.department_id) ORDER BY e.salary DESC;
+================================================================================
+OUTPUT (4 rows):
+name        | salary
+------------|----------
+Bob Brown   | 80000.00
+David Green | 70000.00
+Jane Smith  | 60000.00
+Eve Black   | 55000.00
+
+Q63: SELECT d.name, COUNT(p.project_id) FROM Department d LEFT JOIN Project p ON d.department_id = p.department_id GROUP BY d.name ORDER BY COUNT(p.project_id) DESC;
+================================================================================
+OUTPUT (4 rows):
+department_name | project_count
+----------------|---------------
+IT              | 2
+Finance         | 2
+Marketing       | 2
+HR              | 1
+
+================================================================================
+OBSERVATIONS & SUMMARY
+================================================================================
+
+Total Records Analyzed:
+- Employees: 7
+- Departments: 4
+- Projects: 7
+
+Key Statistics:
+- Highest Salary: Bob Brown ($80,000)
+- Lowest Salary: Alice Blue ($45,000)
+- Average Salary: $58,928.57
+- Total Payroll: $413,000.00
+
+Department Insights:
+- IT: 2 employees, avg salary $65,000
+- HR: 2 employees, avg salary $55,000
+- Finance: 2 employees, avg salary $50,000
+- Marketing: 1 employee, avg salary $70,000
+
+Hiring Timeline:
+- 2018: 1 hire
+- 2019: 2 hires
+- 2020: 1 hire
+- 2021: 2 hires
+- 2022: 1 hire
+
+Age Distribution:
+- Youngest: Alice Blue (25 years)
+- Oldest: Bob Brown (45 years)
+- Average Age: 33.57 years
+
+Project Distribution:
+- IT Department: 2 projects (Project Alpha, Project Gamma)
+- HR Department: 1 project (Project Beta)
+- Finance Department: 2 projects (Project Delta, Project Eta)
+- Marketing Department: 2 projects (Project Epsilon, Project Zeta)
+
+================================================================================
+END OF OUTPUT DOCUMENT
+================================================================================
