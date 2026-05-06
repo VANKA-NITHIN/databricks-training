@@ -297,13 +297,6 @@ SELECT d.name, SUM(p.budget) as total_budget FROM Department d LEFT JOIN Project
 -- BONUS Q68: Employees with their department and highest salary in that department
 SELECT e.name, d.name, (SELECT MAX(salary) FROM Employee WHERE department_id = e.department_id) as dept_max_salary FROM Employee e JOIN Department d ON e.department_id = d.dept_id;
 
-================================================================================
-END OF QUERY FILE
-================================================================================
 
-INSTRUCTIONS FOR USE:
-1. Copy the SCHEMA CREATION section to the LEFT side of DB Fiddle
-2. Copy individual queries to the RIGHT side of DB Fiddle
-3. Execute and observe outputs
-4. Compare with solutions.sql for explanations
-5. Document your outputs in output.txt
+
+
