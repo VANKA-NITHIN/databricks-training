@@ -549,7 +549,7 @@ OBSERVATIONS & SUMMARY
 ================================================================================
 
 Total Records Analyzed:
-- Employees: 7
+- Employees:  7
 - Departments: 4
 - Projects: 7
 
