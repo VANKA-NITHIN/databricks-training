@@ -1,6 +1,6 @@
 ================================================================================
 DATABRICKS TRAINING - WEEK 1 DAY 1
-SOLUTIONS TO 65 SQL QUERIES WITH DETAILED EXPLANATIONS
+65 SQL PRACTICE QUERIES - SOLUTIONS & EXPLANATIONS
 ================================================================================
 
 ================================================================================
@@ -8,947 +8,992 @@ SECTION 1: BASIC SELECT QUERIES (5 QUERIES)
 ================================================================================
 
 Q1: Get all employee records
-QUERY: SELECT * FROM Employee;
+---
+Query:
+SELECT * FROM Employee;
 
-EXPLANATION:
-- SELECT * retrieves all columns from the Employee table
-- No WHERE clause means all rows are returned
-- Useful for seeing complete data structure
+Solution:
+This query retrieves ALL columns from ALL rows in the Employee table.
 
-EXPECTED OUTPUT:
-7 rows with all employee information (emp_id, name, age, salary, department_id, hire_date)
+Expected Output:
+emp_id | name        | age | salary    | department_id | hire_date
+-------|-------------|-----|-----------|---------------|----------
+1      | John Doe    | 28  | 50000.00  | 1             | 2020-01-15
+2      | Jane Smith  | 34  | 60000.00  | 2             | 2019-07-23
+3      | Bob Brown   | 45  | 80000.00  | 1             | 2018-02-12
+4      | Alice Blue  | 25  | 45000.00  | 3             | 2021-03-22
+5      | Charlie P.  | 29  | 50000.00  | 2             | 2019-12-01
+6      | David Green | 38  | 70000.00  | 4             | 2022-05-18
+7      | Eve Black   | 40  | 55000.00  | 3             | 2021-08-30
 
-KEY LEARNING:
-- SELECT * is useful for exploration but inefficient for large tables
-- Specify column names when you only need specific data
+Key Points:
+- SELECT * retrieves all columns
+- No filtering means all rows are returned
+- Use specific columns when you only need some data
 
 ---
 
 Q2: Get specific columns (name and salary)
-QUERY: SELECT name, salary FROM Employee;
+---
+Query:
+SELECT name, salary FROM Employee;
 
-EXPLANATION:
-- SELECT specifies exact columns needed: name and salary
-- More efficient than SELECT * because less data is transferred
-- Clear what information you're retrieving
+Solution:
+This query retrieves only name and salary columns from the Employee table.
 
-EXPECTED OUTPUT:
-7 rows showing only name and salary columns
+Expected Output:
+name        | salary
+------------|----------
+John Doe    | 50000.00
+Jane Smith  | 60000.00
+Bob Brown   | 80000.00
+Alice Blue  | 45000.00
+Charlie P.  | 50000.00
+David Green | 70000.00
+Eve Black   | 55000.00
 
-KEY LEARNING:
-- Always specify columns in production queries
-- Improves performance and code readability
+Key Points:
+- Reduces data transfer by specifying only needed columns
+- More efficient than SELECT *
+- Makes query results cleaner and faster
 
 ---
 
 Q3: Get all departments
-QUERY: SELECT * FROM Department;
+---
+Query:
+SELECT * FROM Department;
 
-EXPLANATION:
-- Retrieves all departments in the organization
-- Shows department structure
-
-EXPECTED OUTPUT:
-4 rows with departments: IT, HR, Finance, Marketing
+Expected Output:
+dept_id | name
+--------|----------
+1       | IT
+2       | HR
+3       | Finance
+4       | Marketing
 
 ---
 
 Q4: Get employee names and their ages
-QUERY: SELECT name, age FROM Employee;
+---
+Query:
+SELECT name, age FROM Employee;
 
-EXPLANATION:
-- Similar to Q2 but retrieves different columns
-- Shows age distribution in organization
-
-EXPECTED OUTPUT:
-7 rows with employee names and ages
+Expected Output:
+name        | age
+------------|-----
+John Doe    | 28
+Jane Smith  | 34
+Bob Brown   | 45
+Alice Blue  | 25
+Charlie P.  | 29
+David Green | 38
+Eve Black   | 40
 
 ---
 
 Q5: Get all projects
-QUERY: SELECT * FROM Project;
+---
+Query:
+SELECT * FROM Project;
 
-EXPLANATION:
-- Retrieves all projects in the system
-- Shows project names and departments
-
-EXPECTED OUTPUT:
-7 rows with all project information
+Expected Output:
+project_id | name             | department_id | budget
+-----------|------------------|---------------|----------
+1          | Project Alpha    | 1             | 100000.00
+2          | Project Beta     | 2             | 80000.00
+3          | Project Gamma    | 1             | 120000.00
+4          | Project Delta    | 3             | 90000.00
+5          | Project Epsilon  | 4             | 110000.00
+6          | Project Zeta     | 4             | 95000.00
+7          | Project Eta      | 3             | 85000.00
 
 ================================================================================
 SECTION 2: WHERE CLAUSE - SIMPLE CONDITIONS (10 QUERIES)
 ================================================================================
 
 Q6: Find employees older than 30
-QUERY: SELECT * FROM Employee WHERE age > 30;
+---
+Query:
+SELECT * FROM Employee WHERE age > 30;
 
-EXPLANATION:
-- WHERE clause filters rows based on condition
-- age > 30 means select only employees with age greater than 30
-- Comparison operator: > (greater than)
+Explanation:
+WHERE age > 30 filters rows to show only employees whose age is greater than 30.
 
-EXPECTED OUTPUT:
+Expected Output:
 4 rows (Jane Smith-34, Bob Brown-45, David Green-38, Eve Black-40)
-
-KEY LEARNING:
-- WHERE reduces result set to relevant data
-- Comparison operators: =, >, <, >=, <=, <>
 
 ---
 
 Q7: Find employees with salary greater than 50000
-QUERY: SELECT * FROM Employee WHERE salary > 50000;
+---
+Query:
+SELECT * FROM Employee WHERE salary > 50000;
 
-EXPLANATION:
-- Filters employees by salary threshold
-- Useful for identifying high earners
+Explanation:
+Retrieves all employees earning more than 50000.
 
-EXPECTED OUTPUT:
-4 rows (Jane Smith-60000, Bob Brown-80000, David Green-70000, Eve Black-55000)
+Expected Output:
+5 rows (Jane Smith-60000, Bob Brown-80000, David Green-70000, Eve Black-55000, and others)
 
 ---
 
 Q8: Find employees in department 1
-QUERY: SELECT * FROM Employee WHERE department_id = 1;
+---
+Query:
+SELECT * FROM Employee WHERE department_id = 1;
 
-EXPLANATION:
-- Equality operator (=) matches exact value
-- Filters by department_id = 1 (IT department)
+Explanation:
+Filters employees by exact department match.
 
-EXPECTED OUTPUT:
-2 rows (John Doe, Bob Brown)
+Expected Output:
+2 rows (John Doe and Bob Brown)
 
 ---
 
 Q9: Find employees with salary exactly 50000
-QUERY: SELECT * FROM Employee WHERE salary = 50000;
+---
+Query:
+SELECT * FROM Employee WHERE salary = 50000;
 
-EXPLANATION:
-- = operator for exact match
-- Two employees have exactly 50000 salary
+Explanation:
+Uses = operator for exact match.
 
-EXPECTED OUTPUT:
-2 rows (John Doe, Charlie P.)
+Expected Output:
+2 rows (John Doe and Charlie P.)
+
+Key Points:
+- = is used for exact equality
+- Returns only rows that match the value exactly
 
 ---
 
 Q10: Find employees NOT in department 2
-QUERY: SELECT * FROM Employee WHERE department_id <> 2;
+---
+Query:
+SELECT * FROM Employee WHERE department_id <> 2;
 
-EXPLANATION:
-- <> means "not equal to" (or != in some databases)
-- Returns all except HR department employees
+Explanation:
+<> or != operator means "not equal to".
 
-EXPECTED OUTPUT:
-5 rows (all except Jane Smith and Charlie P.)
+Expected Output:
+5 rows (all except employees in department 2)
 
-KEY LEARNING:
-- <> and != both mean "not equal to"
-- Different databases may prefer one over the other
+Key Points:
+- <> and != both mean "not equal"
+- Returns all employees except those matching the condition
 
 ---
 
 Q11: Find employees younger than 30
-QUERY: SELECT * FROM Employee WHERE age < 30;
+---
+Query:
+SELECT * FROM Employee WHERE age < 30;
 
-EXPLANATION:
-- < operator for less than comparison
-- Finds junior employees
+Explanation:
+Returns employees with age less than 30.
 
-EXPECTED OUTPUT:
+Expected Output:
 3 rows (John Doe-28, Alice Blue-25, Charlie P.-29)
 
 ---
 
 Q12: Find employees hired after 2020
-QUERY: SELECT * FROM Employee WHERE hire_date > '2020-01-01';
+---
+Query:
+SELECT * FROM Employee WHERE hire_date > '2020-01-01';
 
-EXPLANATION:
-- Date comparison in YYYY-MM-DD format
-- > operator works with dates
+Explanation:
+Compares dates. Format must be 'YYYY-MM-DD'.
 
-EXPECTED OUTPUT:
+Expected Output:
 3 rows (Alice Blue-2021-03-22, Eve Black-2021-08-30, David Green-2022-05-18)
 
-KEY LEARNING:
-- Date format must be correct: YYYY-MM-DD
-- Dates are compared chronologically
+Key Points:
+- Date format: 'YYYY-MM-DD'
+- Date comparison works like number comparison
 
 ---
 
 Q13: Find employees hired before 2019
-QUERY: SELECT * FROM Employee WHERE hire_date < '2019-01-01';
+---
+Query:
+SELECT * FROM Employee WHERE hire_date < '2019-01-01';
 
-EXPLANATION:
-- Finds employees hired in 2018 or earlier
-- Bob Brown is the only one hired before 2019
-
-EXPECTED OUTPUT:
+Expected Output:
 1 row (Bob Brown-2018-02-12)
 
 ---
 
 Q14: Find employees with salary between 50000 and 70000
-QUERY: SELECT * FROM Employee WHERE salary BETWEEN 50000 AND 70000;
+---
+Query:
+SELECT * FROM Employee WHERE salary BETWEEN 50000 AND 70000;
 
-EXPLANATION:
-- BETWEEN operator for range queries
-- Inclusive on both ends (50000 and 70000 included)
+Explanation:
+BETWEEN operator includes both endpoints (inclusive).
 
-EXPECTED OUTPUT:
-4 rows (John Doe-50000, Jane Smith-60000, Charlie P.-50000, Eve Black-55000)
+Expected Output:
+4 rows (John Doe-50000, Charlie P.-50000, Eve Black-55000, David Green-70000)
+
+Key Points:
+- BETWEEN is inclusive on both ends
+- Equivalent to: salary >= 50000 AND salary <= 70000
 
 ---
 
 Q15: Find employees in specific departments
-QUERY: SELECT * FROM Employee WHERE department_id IN (1, 3);
+---
+Query:
+SELECT * FROM Employee WHERE department_id IN (1, 3);
 
-EXPLANATION:
-- IN operator for multiple specific values
-- More readable than: department_id = 1 OR department_id = 3
+Explanation:
+IN operator checks if value is in a list.
 
-EXPECTED OUTPUT:
-4 rows (John Doe, Bob Brown, Alice Blue, Eve Black)
+Expected Output:
+4 rows (employees from departments 1 and 3)
 
-KEY LEARNING:
-- IN is cleaner than multiple OR conditions
-- Useful for checking against a list of values
+Key Points:
+- IN (1, 3) is equivalent to: department_id = 1 OR department_id = 3
+- Cleaner syntax for multiple OR conditions
 
 ================================================================================
 SECTION 3: LIKE OPERATOR - STRING MATCHING (10 QUERIES)
 ================================================================================
 
 Q16: Names starting with 'J'
-QUERY: SELECT * FROM Employee WHERE name LIKE 'J%';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE 'J%';
 
-EXPLANATION:
-- % is wildcard meaning "any characters"
-- J% means starts with J, followed by anything
-- Case sensitive in most databases
+Explanation:
+% matches any number of characters.
+J% means starts with J followed by anything.
 
-EXPECTED OUTPUT:
+Expected Output:
 2 rows (John Doe, Jane Smith)
 
-KEY LEARNING:
+Key Points:
 - % = any number of characters (0 or more)
-- _ = exactly one character
-- LIKE is case sensitive
+- J% = starts with J
+- %J = ends with J
+- %J% = contains J
 
 ---
 
 Q17: Names ending with 'e'
-QUERY: SELECT * FROM Employee WHERE name LIKE '%e';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '%e';
 
-EXPLANATION:
-- %e means anything ending with lowercase 'e'
-- Finds names with 'e' as last character
+Explanation:
+%e matches any string ending with 'e'.
 
-EXPECTED OUTPUT:
+Expected Output:
 5 rows (John Doe, Jane Smith, Alice Blue, Charlie P., Eve Black)
 
 ---
 
 Q18: Names containing 'a'
-QUERY: SELECT * FROM Employee WHERE name LIKE '%a%';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '%a%';
 
-EXPLANATION:
-- %a% means 'a' anywhere in the name
-- Most flexible pattern
+Explanation:
+%a% matches any string with 'a' anywhere in it.
 
-EXPECTED OUTPUT:
-6 rows (all except Bob Brown)
+Expected Output:
+6 rows (Jane Smith, Bob Brown, Alice Blue, Charlie P., David Green, Eve Black)
 
 ---
 
 Q19: Names containing 'o'
-QUERY: SELECT * FROM Employee WHERE name LIKE '%o%';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '%o%';
 
-EXPLANATION:
-- Finds names with letter 'o' anywhere
-
-EXPECTED OUTPUT:
-2 rows (John Doe, Bob Brown)
+Expected Output:
+3 rows (John Doe, Bob Brown, David Green)
 
 ---
 
 Q20: Second character is 'o'
-QUERY: SELECT * FROM Employee WHERE name LIKE '_o%';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '_o%';
 
-EXPLANATION:
-- _ matches exactly one character
-- _o% means: first char (any), second char is 'o', rest is anything
+Explanation:
+_ matches exactly one character.
+_o% = any char, then 'o', then anything.
 
-EXPECTED OUTPUT:
+Expected Output:
 2 rows (John Doe, Bob Brown)
 
-KEY LEARNING:
-- _ matches exactly ONE character, not zero
-- _o% means "second character must be 'o'"
+Key Points:
+- _ = exactly one character
+- _o% = second character must be 'o'
+- __a = third character must be 'a'
 
 ---
 
 Q21: Names with 'B' at start and 'n' at end
-QUERY: SELECT * FROM Employee WHERE name LIKE 'B%n';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE 'B%n';
 
-EXPLANATION:
-- B% means starts with B
-- %n means ends with n
-- Combined: B%n = starts with B and ends with n
-
-EXPECTED OUTPUT:
+Expected Output:
 1 row (Bob Brown)
 
 ---
 
 Q22: Names NOT starting with 'J'
-QUERY: SELECT * FROM Employee WHERE name NOT LIKE 'J%';
+---
+Query:
+SELECT * FROM Employee WHERE name NOT LIKE 'J%';
 
-EXPLANATION:
-- NOT LIKE reverses the LIKE condition
-- Returns all names except those starting with 'J'
-
-EXPECTED OUTPUT:
+Expected Output:
 5 rows (all except John Doe, Jane Smith)
 
-KEY LEARNING:
-- NOT LIKE is opposite of LIKE
-- Useful for exclusion patterns
+Key Points:
+- NOT LIKE reverses the pattern match
 
 ---
 
 Q23: Names with exactly 4 characters
-QUERY: SELECT * FROM Employee WHERE name LIKE '____';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '____';
 
-EXPLANATION:
-- Four _ underscores match exactly 4 characters
-- Eve (3 chars), Bob (3 chars) don't match
+Explanation:
+Four underscores = exactly 4 characters.
 
-EXPECTED OUTPUT:
-0 rows (no employee has exactly 4-character first name in this format)
-
-Note: This counts individual names; if first and last name together, count differently
+Expected Output:
+0 rows (no employee names are exactly 4 characters)
 
 ---
 
 Q24: Names starting with 'D'
-QUERY: SELECT * FROM Employee WHERE name LIKE 'D%';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE 'D%';
 
-EXPLANATION:
-- Simple pattern: starts with D
-
-EXPECTED OUTPUT:
+Expected Output:
 1 row (David Green)
 
 ---
 
 Q25: Names ending with 'e' or 'n'
-QUERY: SELECT * FROM Employee WHERE name LIKE '%e' OR name LIKE '%n';
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '%e' OR name LIKE '%n';
 
-EXPLANATION:
-- Combines two LIKE conditions with OR
-- Returns names ending with 'e' OR 'n'
+Explanation:
+Combines two LIKE patterns with OR.
 
-EXPECTED OUTPUT:
-6 rows (John Doe, Jane Smith, Alice Blue, Charlie P., Eve Black, Bob Brown)
+Expected Output:
+6 rows (most employees)
 
 ================================================================================
 SECTION 4: COMBINED CONDITIONS - AND/OR (10 QUERIES)
 ================================================================================
 
 Q26: Age > 30 AND salary > 60000
-QUERY: SELECT * FROM Employee WHERE age > 30 AND salary > 60000;
+---
+Query:
+SELECT * FROM Employee WHERE age > 30 AND salary > 60000;
 
-EXPLANATION:
-- AND means BOTH conditions must be true
-- age > 30: Jane, Bob, David, Eve
-- salary > 60000: Jane, Bob, David
-- Intersection: Jane, Bob, David
+Explanation:
+Both conditions must be true for a row to be selected.
 
-EXPECTED OUTPUT:
+Expected Output:
 3 rows (Jane Smith, Bob Brown, David Green)
 
-KEY LEARNING:
-- AND is more restrictive than OR
-- Narrows down results
+Key Points:
+- AND = both conditions must be true
+- If either is false, row is excluded
 
 ---
 
 Q27: Department 1 OR Department 2
-QUERY: SELECT * FROM Employee WHERE department_id = 1 OR department_id = 2;
+---
+Query:
+SELECT * FROM Employee WHERE department_id = 1 OR department_id = 2;
 
-EXPLANATION:
-- OR means at least one condition must be true
-- More inclusive than AND
+Explanation:
+At least one condition must be true.
 
-EXPECTED OUTPUT:
-4 rows (John Doe, Bob Brown, Jane Smith, Charlie P.)
+Expected Output:
+4 rows (employees from dept 1 or 2)
 
-KEY LEARNING:
-- OR is broader than AND
-- Returns more results
+Key Points:
+- OR = at least one condition must be true
+- This is equivalent to: department_id IN (1, 2)
 
 ---
 
 Q28: Age > 25 AND department_id = 3
-QUERY: SELECT * FROM Employee WHERE age > 25 AND department_id = 3;
+---
+Query:
+SELECT * FROM Employee WHERE age > 25 AND department_id = 3;
 
-EXPLANATION:
-- Combines age and department conditions
-- All Finance employees older than 25
-
-EXPECTED OUTPUT:
-1 row (Eve Black-40)
-
-Note: Alice Blue is in Finance but age 25, so not included (needs > 25)
+Expected Output:
+1 row (Eve Black - age 40)
 
 ---
 
 Q29: Name starts with 'J' AND salary > 50000
-QUERY: SELECT * FROM Employee WHERE name LIKE 'J%' AND salary > 50000;
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE 'J%' AND salary > 50000;
 
-EXPLANATION:
-- Combines LIKE pattern with salary condition
-- Names starting with J (John, Jane) who earn > 50000
-
-EXPECTED OUTPUT:
-2 rows (Jane Smith-60000)
-
-Note: John Doe starts with J but salary = 50000, so not included
+Expected Output:
+1 row (Jane Smith - starts with J, salary 60000)
 
 ---
 
 Q30: Age between 30 and 40 AND department = 1
-QUERY: SELECT * FROM Employee WHERE age BETWEEN 30 AND 40 AND department_id = 1;
+---
+Query:
+SELECT * FROM Employee WHERE age BETWEEN 30 AND 40 AND department_id = 1;
 
-EXPLANATION:
-- BETWEEN is more readable than age >= 30 AND age <= 40
-- Further filtered by department
-
-EXPECTED OUTPUT:
-0 rows (Bob Brown is dept 1 but age 45, not between 30-40)
+Expected Output:
+0 rows (department 1 employees are 28 and 45, not between 30-40)
 
 ---
 
 Q31: Salary > 60000 OR age < 30
-QUERY: SELECT * FROM Employee WHERE salary > 60000 OR age < 30;
+---
+Query:
+SELECT * FROM Employee WHERE salary > 60000 OR age < 30;
 
-EXPLANATION:
-- salary > 60000: Jane, Bob, David
-- age < 30: John, Alice, Charlie
-- OR combines both: all six
+Explanation:
+Returns rows where either condition is true.
 
-EXPECTED OUTPUT:
-6 rows (all except Eve Black)
+Expected Output:
+5 rows
 
 ---
 
 Q32: (Department = 1 OR Department = 4) AND salary > 50000
-QUERY: SELECT * FROM Employee WHERE (department_id = 1 OR department_id = 4) AND salary > 50000;
+---
+Query:
+SELECT * FROM Employee WHERE (department_id = 1 OR department_id = 4) AND salary > 50000;
 
-EXPLANATION:
-- Parentheses control operator precedence
-- First: department 1 or 4
-- Then: salary > 50000
-- John Doe (dept 1, salary 50000) is excluded
+Explanation:
+Parentheses define operator precedence.
 
-EXPECTED OUTPUT:
-2 rows (Bob Brown-dept 1, David Green-dept 4)
+Expected Output:
+3 rows (Bob Brown from dept 1, David Green from dept 4)
 
-KEY LEARNING:
-- Parentheses define condition grouping
-- Ensure correct logical flow
+Key Points:
+- () groups conditions together
+- AND is evaluated before OR without parentheses
 
 ---
 
 Q33: NOT (age < 30 AND department_id = 2)
-QUERY: SELECT * FROM Employee WHERE NOT (age < 30 AND department_id = 2);
+---
+Query:
+SELECT * FROM Employee WHERE NOT (age < 30 AND department_id = 2);
 
-EXPLANATION:
-- NOT reverses entire condition
-- Condition: age < 30 AND dept = 2 (young HR employees)
-- NOT this: all except young HR employees
-
-EXPECTED OUTPUT:
-6 rows (all except Charlie P.)
+Expected Output:
+6 rows (excludes only employees < 30 in dept 2)
 
 ---
 
 Q34: Age >= 30 AND (department_id = 1 OR department_id = 3)
-QUERY: SELECT * FROM Employee WHERE age >= 30 AND (department_id = 1 OR department_id = 3);
+---
+Query:
+SELECT * FROM Employee WHERE age >= 30 AND (department_id = 1 OR department_id = 3);
 
-EXPLANATION:
-- Age 30 or older
-- AND in department 1 or 3
-
-EXPECTED OUTPUT:
-3 rows (Jane-dept 2 is excluded, Bob-dept 1, Eve-dept 3)
+Expected Output:
+3 rows (Bob Brown, Eve Black, and possibly others)
 
 ---
 
 Q35: Name contains 'a' AND salary > 50000
-QUERY: SELECT * FROM Employee WHERE name LIKE '%a%' AND salary > 50000;
+---
+Query:
+SELECT * FROM Employee WHERE name LIKE '%a%' AND salary > 50000;
 
-EXPLANATION:
-- Names with 'a' in them
-- Who earn more than 50000
-
-EXPECTED OUTPUT:
-4 rows (Jane Smith, Alice Blue, Charlie P., Eve Black)
+Expected Output:
+4 rows
 
 ================================================================================
 SECTION 5: AGGREGATE FUNCTIONS (10 QUERIES)
 ================================================================================
 
 Q36: Count total employees
-QUERY: SELECT COUNT(*) as total_employees FROM Employee;
+---
+Query:
+SELECT COUNT(*) as total_employees FROM Employee;
 
-EXPLANATION:
-- COUNT(*) counts all rows
-- AS alias renames the result column
-- Returns single value: 7
+Explanation:
+COUNT(*) counts all rows. AS renames the result column.
 
-EXPECTED OUTPUT:
-1 row: total_employees = 7
+Expected Output:
+total_employees
+---------------
+7
 
-KEY LEARNING:
-- COUNT(*) counts all rows including NULL
-- COUNT(column) ignores NULL values
-- Aggregate functions return single values
+Key Points:
+- COUNT(*) counts rows
+- COUNT(column_name) counts non-NULL values
+- AS creates an alias for column name
 
 ---
 
 Q37: Sum of all salaries
-QUERY: SELECT SUM(salary) as total_salary FROM Employee;
+---
+Query:
+SELECT SUM(salary) as total_salary FROM Employee;
 
-EXPLANATION:
-- SUM adds all salary values
-- 50000 + 60000 + 80000 + 45000 + 50000 + 70000 + 55000 = 410000
+Expected Output:
+total_salary
+-----------
+413000.00
 
-EXPECTED OUTPUT:
-1 row: total_salary = 410000.00
-
-Note: Exact value may vary; calculate: 50+60+80+45+50+70+55 = 410 (in thousands)
+Calculation: 50000 + 60000 + 80000 + 45000 + 50000 + 70000 + 55000 = 413000
 
 ---
 
 Q38: Average salary
-QUERY: SELECT AVG(salary) as average_salary FROM Employee;
+---
+Query:
+SELECT AVG(salary) as average_salary FROM Employee;
 
-EXPLANATION:
-- AVG calculates mean
-- 410000 / 7 = 58571.43
+Expected Output:
+average_salary
+--------------
+58928.57
 
-EXPECTED OUTPUT:
-1 row: average_salary ≈ 58571.43
-
-KEY LEARNING:
-- AVG ignores NULL values
-- Uses COUNT(non-NULL values) in denominator
+Calculation: 413000 / 7 ≈ 58928.57
 
 ---
 
 Q39: Maximum salary
-QUERY: SELECT MAX(salary) as highest_salary FROM Employee;
+---
+Query:
+SELECT MAX(salary) as highest_salary FROM Employee;
 
-EXPLANATION:
-- MAX finds highest value
-- Bob Brown earns 80000 (highest)
+Expected Output:
+highest_salary
+--------------
+80000.00
 
-EXPECTED OUTPUT:
-1 row: highest_salary = 80000.00
+(Bob Brown has the highest salary)
 
 ---
 
 Q40: Minimum salary
-QUERY: SELECT MIN(salary) as lowest_salary FROM Employee;
+---
+Query:
+SELECT MIN(salary) as lowest_salary FROM Employee;
 
-EXPLANATION:
-- MIN finds lowest value
-- Alice Blue earns 45000 (lowest)
+Expected Output:
+lowest_salary
+-------------
+45000.00
 
-EXPECTED OUTPUT:
-1 row: lowest_salary = 45000.00
+(Alice Blue has the lowest salary)
 
 ---
 
 Q41: Count employees in department 1
-QUERY: SELECT COUNT(*) as dept1_count FROM Employee WHERE department_id = 1;
+---
+Query:
+SELECT COUNT(*) as dept1_count FROM Employee WHERE department_id = 1;
 
-EXPLANATION:
-- Combines COUNT with WHERE
-- Only counts employees in IT (dept 1)
+Expected Output:
+dept1_count
+----------
+2
 
-EXPECTED OUTPUT:
-1 row: dept1_count = 2
+(John Doe and Bob Brown)
 
 ---
 
 Q42: Average age of all employees
-QUERY: SELECT AVG(age) as average_age FROM Employee;
+---
+Query:
+SELECT AVG(age) as average_age FROM Employee;
 
-EXPLANATION:
-- Average of all ages
-- (28+34+45+25+29+38+40) / 7 = 33.57
+Expected Output:
+average_age
+-----------
+33.57
 
-EXPECTED OUTPUT:
-1 row: average_age ≈ 33.57
+Calculation: (28+34+45+25+29+38+40) / 7 ≈ 33.57
 
 ---
 
 Q43: Sum of all project budgets
-QUERY: SELECT SUM(budget) as total_budget FROM Project;
+---
+Query:
+SELECT SUM(budget) as total_budget FROM Project;
 
-EXPLANATION:
-- Total project investment
-
-EXPECTED OUTPUT:
-1 row with sum of all project budgets
+Expected Output:
+total_budget
+-----------
+685000.00
 
 ---
 
 Q44: Average project budget
-QUERY: SELECT AVG(budget) as avg_budget FROM Project;
+---
+Query:
+SELECT AVG(budget) as avg_budget FROM Project;
 
-EXPLANATION:
-- Mean project investment size
-
-EXPECTED OUTPUT:
-1 row with average budget
+Expected Output:
+avg_budget
+----------
+97857.14
 
 ---
 
 Q45: Count of all projects
-QUERY: SELECT COUNT(*) as total_projects FROM Project;
+---
+Query:
+SELECT COUNT(*) as total_projects FROM Project;
 
-EXPLANATION:
-- How many projects exist
-
-EXPECTED OUTPUT:
-1 row: total_projects = 7
+Expected Output:
+total_projects
+--------------
+7
 
 ================================================================================
 SECTION 6: ORDER BY - SORTING (5 QUERIES)
 ================================================================================
 
 Q46: Sort employees by salary ascending
-QUERY: SELECT * FROM Employee ORDER BY salary ASC;
+---
+Query:
+SELECT * FROM Employee ORDER BY salary ASC;
 
-EXPLANATION:
-- ORDER BY sorts results
-- ASC = ascending (lowest to highest)
-- Default is ASC if not specified
+Explanation:
+ASC = ascending (low to high). Default if not specified.
 
-EXPECTED OUTPUT:
-7 rows sorted: Alice-45000, John-50000, Charlie-50000, Eve-55000, Jane-60000, David-70000, Bob-80000
-
-KEY LEARNING:
-- ASC = ascending (lowest first)
-- DESC = descending (highest first)
-- Default is ASC
+Expected Output:
+Rows sorted by salary from lowest (45000) to highest (80000)
 
 ---
 
 Q47: Sort employees by salary descending
-QUERY: SELECT * FROM Employee ORDER BY salary DESC;
+---
+Query:
+SELECT * FROM Employee ORDER BY salary DESC;
 
-EXPLANATION:
-- DESC = descending (highest to lowest)
+Explanation:
+DESC = descending (high to low).
 
-EXPECTED OUTPUT:
-7 rows sorted highest to lowest salary: Bob-80000, David-70000, Jane-60000, Eve-55000, John-50000, Charlie-50000, Alice-45000
+Expected Output:
+Rows sorted by salary from highest (80000) to lowest (45000)
 
 ---
 
 Q48: Sort employees by age ascending
-QUERY: SELECT * FROM Employee ORDER BY age ASC;
+---
+Query:
+SELECT * FROM Employee ORDER BY age ASC;
 
-EXPLANATION:
-- Youngest to oldest
-
-EXPECTED OUTPUT:
-7 rows: Alice-25, John-28, Charlie-29, Jane-34, David-38, Eve-40, Bob-45
+Expected Output:
+Alice Blue (25), John Doe (28), Charlie P (29), ...
 
 ---
 
 Q49: Sort by department, then by salary descending
-QUERY: SELECT * FROM Employee ORDER BY department_id ASC, salary DESC;
+---
+Query:
+SELECT * FROM Employee ORDER BY department_id ASC, salary DESC;
 
-EXPLANATION:
-- Primary sort: department ascending (1, 2, 3, 4)
-- Secondary sort: within each department, highest salary first
+Explanation:
+Multiple ORDER BY columns. First by department (ascending), then by salary (descending) within each department.
 
-EXPECTED OUTPUT:
-Within each department, salaries from highest to lowest
-
-KEY LEARNING:
-- Multiple ORDER BY columns
-- Sorted left to right in priority
+Expected Output:
+Dept 1: Bob Brown (80000), John Doe (50000)
+Dept 2: Jane Smith (60000), Charlie P (50000)
+...
 
 ---
 
 Q50: Sort projects by budget descending
-QUERY: SELECT * FROM Project ORDER BY budget DESC;
+---
+Query:
+SELECT * FROM Project ORDER BY budget DESC;
 
-EXPLANATION:
-- Most expensive projects first
-
-EXPECTED OUTPUT:
-7 projects sorted highest to lowest budget
+Expected Output:
+Project Gamma (120000), Project Epsilon (110000), ...
 
 ================================================================================
 SECTION 7: GROUP BY - DATA GROUPING (5 QUERIES)
 ================================================================================
 
 Q51: Count employees per department
-QUERY: SELECT department_id, COUNT(*) as employee_count FROM Employee GROUP BY department_id;
+---
+Query:
+SELECT department_id, COUNT(*) as employee_count FROM Employee GROUP BY department_id;
 
-EXPLANATION:
-- GROUP BY groups rows by department_id
-- COUNT(*) counts employees in each group
-- Produces one row per department
+Explanation:
+GROUP BY groups rows by department_id, then COUNT counts rows in each group.
 
-EXPECTED OUTPUT:
-4 rows:
-dept 1: 2 employees
-dept 2: 2 employees
-dept 3: 2 employees
-dept 4: 1 employee
+Expected Output:
+department_id | employee_count
+--------------|---------------
+1             | 2
+2             | 2
+3             | 2
+4             | 1
 
-KEY LEARNING:
-- GROUP BY creates groups
-- Aggregate functions apply to each group separately
-- Result is one row per group
+Key Points:
+- GROUP BY creates groups based on column values
+- Aggregates (COUNT, SUM, AVG) are calculated per group
 
 ---
 
 Q52: Average salary per department
-QUERY: SELECT department_id, AVG(salary) as avg_salary FROM Employee GROUP BY department_id;
+---
+Query:
+SELECT department_id, AVG(salary) as avg_salary FROM Employee GROUP BY department_id;
 
-EXPLANATION:
-- One row per department with average salary
-
-EXPECTED OUTPUT:
-4 rows with department ID and average salary for each
+Expected Output:
+department_id | avg_salary
+--------------|----------
+1             | 65000.00
+2             | 55000.00
+3             | 50000.00
+4             | 70000.00
 
 ---
 
 Q53: Total salary per department
-QUERY: SELECT department_id, SUM(salary) as total_salary FROM Employee GROUP BY department_id;
+---
+Query:
+SELECT department_id, SUM(salary) as total_salary FROM Employee GROUP BY department_id;
 
-EXPLANATION:
-- Total payroll by department
-
-EXPECTED OUTPUT:
-4 rows with department and total salary
+Expected Output:
+department_id | total_salary
+--------------|-------------
+1             | 130000.00
+2             | 110000.00
+3             | 100000.00
+4             | 70000.00
 
 ---
 
 Q54: Count projects per department
-QUERY: SELECT department_id, COUNT(*) as project_count FROM Project GROUP BY department_id;
+---
+Query:
+SELECT department_id, COUNT(*) as project_count FROM Project GROUP BY department_id;
 
-EXPLANATION:
-- How many projects in each department
-
-EXPECTED OUTPUT:
-4 rows with project count per department
+Expected Output:
+department_id | project_count
+--------------|---------------
+1             | 2
+2             | 1
+3             | 2
+4             | 2
 
 ---
 
 Q55: Average age per department
-QUERY: SELECT department_id, AVG(age) as avg_age FROM Employee GROUP BY department_id;
+---
+Query:
+SELECT department_id, AVG(age) as avg_age FROM Employee GROUP BY department_id;
 
-EXPLANATION:
-- Average employee age by department
-
-EXPECTED OUTPUT:
-4 rows with average age per department
+Expected Output:
+department_id | avg_age
+--------------|--------
+1             | 36.50
+2             | 31.50
+3             | 32.50
+4             | 38.00
 
 ================================================================================
 SECTION 8: HAVING CLAUSE - FILTERING GROUPS (5 QUERIES)
 ================================================================================
 
 Q56: Departments with average salary > 55000
-QUERY: SELECT department_id, AVG(salary) as avg_salary FROM Employee GROUP BY department_id HAVING AVG(salary) > 55000;
+---
+Query:
+SELECT department_id, AVG(salary) as avg_salary FROM Employee GROUP BY department_id HAVING AVG(salary) > 55000;
 
-EXPLANATION:
-- GROUP BY creates groups
-- HAVING filters the groups (like WHERE for groups)
-- WHERE filters rows; HAVING filters groups
+Explanation:
+WHERE filters rows before grouping. HAVING filters groups after grouping.
 
-EXPECTED OUTPUT:
-2 rows: departments 1 and 4 (those with avg salary > 55000)
+Expected Output:
+department_id | avg_salary
+--------------|----------
+1             | 65000.00
+4             | 70000.00
 
-KEY LEARNING:
-- HAVING applies to groups, not individual rows
-- Must use aggregate functions in HAVING
-- WHERE filters before grouping; HAVING filters after
+Key Points:
+- HAVING is used with GROUP BY
+- WHERE filters rows, HAVING filters groups
+- Use HAVING when filtering on aggregate results
 
 ---
 
 Q57: Departments with more than 1 employee
-QUERY: SELECT department_id, COUNT(*) as emp_count FROM Employee GROUP BY department_id HAVING COUNT(*) > 1;
+---
+Query:
+SELECT department_id, COUNT(*) as emp_count FROM Employee GROUP BY department_id HAVING COUNT(*) > 1;
 
-EXPLANATION:
-- Only departments with 2 or more employees
+Expected Output:
+department_id | emp_count
+--------------|----------
+1             | 2
+2             | 2
+3             | 2
 
-EXPECTED OUTPUT:
-3 rows: departments 1, 2, 3 (each has 2+ employees)
+(Department 4 has only 1 employee, so excluded)
 
 ---
 
 Q58: Departments with total salary > 100000
-QUERY: SELECT department_id, SUM(salary) as total_sal FROM Employee GROUP BY department_id HAVING SUM(salary) > 100000;
+---
+Query:
+SELECT department_id, SUM(salary) as total_sal FROM Employee GROUP BY department_id HAVING SUM(salary) > 100000;
 
-EXPLANATION:
-- Only high-payroll departments
-
-EXPECTED OUTPUT:
-2 rows: departments 1 and 2
+Expected Output:
+department_id | total_sal
+--------------|----------
+1             | 130000.00
+2             | 110000.00
 
 ---
 
 Q59: Departments with average age > 33
-QUERY: SELECT department_id, AVG(age) as avg_age FROM Employee GROUP BY department_id HAVING AVG(age) > 33;
+---
+Query:
+SELECT department_id, AVG(age) as avg_age FROM Employee GROUP BY department_id HAVING AVG(age) > 33;
 
-EXPLANATION:
-- Departments with older average workforce
-
-EXPECTED OUTPUT:
-2 rows: departments 1 and 4
+Expected Output:
+department_id | avg_age
+--------------|--------
+1             | 36.50
+4             | 38.00
 
 ---
 
 Q60: Departments with at least 1 employee
-QUERY: SELECT department_id, COUNT(*) FROM Employee GROUP BY department_id HAVING COUNT(*) >= 1;
+---
+Query:
+SELECT department_id, COUNT(*) FROM Employee GROUP BY department_id HAVING COUNT(*) >= 1;
 
-EXPLANATION:
-- All departments (all have >= 1 employee in this dataset)
-
-EXPECTED OUTPUT:
-4 rows (all departments)
+Expected Output:
+All 4 departments (each has at least 1 employee)
 
 ================================================================================
-SECTION 9: JOINS - COMBINING TABLES (10 QUERIES)
+SECTION 9: JOINS - COMBINING TABLES (10+ QUERIES)
 ================================================================================
 
 Q61: Employee with their department names
-QUERY: SELECT e.name, d.name as department FROM Employee e JOIN Department d ON e.department_id = d.dept_id;
+---
+Query:
+SELECT e.name, d.name as department FROM Employee e JOIN Department d ON e.department_id = d.dept_id;
 
-EXPLANATION:
-- JOIN combines data from two tables
-- ON specifies the connection condition
-- e and d are aliases for shorter syntax
+Explanation:
+JOIN combines rows from two tables based on a matching condition.
+e and d are table aliases.
 
-EXPECTED OUTPUT:
-7 rows with employee names and department names
+Expected Output:
+name        | department
+------------|----------
+John Doe    | IT
+Jane Smith  | HR
+Bob Brown   | IT
+...
 
-KEY LEARNING:
-- JOIN combines rows from multiple tables
-- ON specifies join condition
-- Aliases (e, d) make queries more readable
+Key Points:
+- e is alias for Employee table
+- d is alias for Department table
+- ON specifies the join condition
 
 ---
 
 Q62: Projects with their department names
-QUERY: SELECT p.name, d.name as department FROM Project p JOIN Department d ON p.department_id = d.dept_id;
+---
+Query:
+SELECT p.name, d.name as department FROM Project p JOIN Department d ON p.department_id = d.dept_id;
 
-EXPLANATION:
-- Similar to Q61 but for projects
-
-EXPECTED OUTPUT:
-7 rows with project names and department names
+Expected Output:
+name             | department
+-----------------|----------
+Project Alpha    | IT
+Project Beta     | HR
+...
 
 ---
 
 Q63: Employees and their departments (using INNER JOIN)
-QUERY: SELECT e.name, e.salary, d.name FROM Employee e INNER JOIN Department d ON e.department_id = d.dept_id;
+---
+Query:
+SELECT e.name, e.salary, d.name FROM Employee e INNER JOIN Department d ON e.department_id = d.dept_id;
 
-EXPLANATION:
-- INNER JOIN is same as JOIN
-- Returns only matching rows
-- Employees with departments
-
-EXPECTED OUTPUT:
-7 rows with name, salary, and department
+Expected Output:
+name        | salary   | name
+------------|----------|-----
+John Doe    | 50000.00 | IT
+Jane Smith  | 60000.00 | HR
+...
 
 ---
 
 Q64: All employees with their departments (LEFT JOIN)
-QUERY: SELECT e.name, d.name FROM Employee e LEFT JOIN Department d ON e.department_id = d.dept_id;
+---
+Query:
+SELECT e.name, d.name FROM Employee e LEFT JOIN Department d ON e.department_id = d.dept_id;
 
-EXPLANATION:
-- LEFT JOIN keeps all rows from left table
-- If no match in right table, shows NULL
+Explanation:
+LEFT JOIN returns all rows from left table, matching right table if available.
 
-EXPECTED OUTPUT:
-7 rows (all employees with their departments)
-
-KEY LEARNING:
-- LEFT JOIN: all left table rows, matching right rows
-- RIGHT JOIN: all right table rows, matching left rows
-- INNER JOIN: only matching rows from both
+Expected Output:
+name        | name
+------------|----------
+John Doe    | IT
+Jane Smith  | HR
+...
 
 ---
 
 Q65: All departments with their employees count
-QUERY: SELECT d.name, COUNT(e.emp_id) as emp_count FROM Department d LEFT JOIN Employee e ON d.dept_id = e.department_id GROUP BY d.dept_id, d.name;
+---
+Query:
+SELECT d.name, COUNT(e.emp_id) as emp_count FROM Department d LEFT JOIN Employee e ON d.dept_id = e.department_id GROUP BY d.dept_id, d.name;
 
-EXPLANATION:
-- LEFT JOIN keeps all departments
-- GROUP BY counts employees
-- Even departments with 0 employees show count as 0
+Explanation:
+Complex query combining LEFT JOIN, GROUP BY, and COUNT.
 
-EXPECTED OUTPUT:
-4 rows with department names and employee counts
-
-KEY LEARNING:
-- LEFT JOIN with GROUP BY shows all groups even if empty
-- COUNT(e.emp_id) counts non-NULL employee IDs
+Expected Output:
+name      | emp_count
+----------|----------
+IT        | 2
+HR        | 2
+Finance   | 2
+Marketing | 1
 
 ================================================================================
 KEY CONCEPTS SUMMARY
 ================================================================================
 
-1. SELECT: Retrieve data
-   - SELECT column_name
-   - SELECT *
-   - SELECT DISTINCT
-
-2. FROM: Specify table
-   - FROM table_name
-
-3. WHERE: Filter rows
-   - WHERE condition
-   - Operators: =, >, <, >=, <=, <>, BETWEEN, IN, LIKE, IS NULL
-
-4. GROUP BY: Create groups
-   - GROUP BY column
-
-5. HAVING: Filter groups
-   - HAVING aggregate_condition
-
-6. ORDER BY: Sort results
-   - ORDER BY column ASC/DESC
-
-7. JOIN: Combine tables
-   - JOIN, INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN
-
-8. AGGREGATE FUNCTIONS:
-   - COUNT(*) - count rows
-   - SUM(column) - add values
-   - AVG(column) - average
-   - MIN(column) - minimum
-   - MAX(column) - maximum
-
-9. LOGICAL OPERATORS:
-   - AND (all conditions true)
-   - OR (at least one true)
-   - NOT (reverse condition)
-
-10. PATTERN MATCHING:
-    - LIKE with % (any characters)
-    - LIKE with _ (single character)
+SELECT   - Choose columns
+FROM     - Table source
+WHERE    - Filter rows before grouping
+LIKE     - Pattern matching (%=any, _=one)
+AND/OR   - Combine conditions
+=, <, >  - Comparison operators
+BETWEEN  - Range check
+IN       - Value in list
+COUNT    - Count rows
+SUM      - Add values
+AVG      - Average value
+MIN/MAX  - Minimum/Maximum
+ORDER BY - Sort results
+GROUP BY - Group rows
+HAVING   - Filter groups
+JOIN     - Combine tables
+AS       - Create aliases
 
 ================================================================================
-END OF SOLUTIONS DOCUMENT
+END OF SOLUTIONS
 ================================================================================
