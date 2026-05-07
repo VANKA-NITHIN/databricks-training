@@ -1,9 +1,8 @@
-````markdown id="9w2k1m"
 # Databricks Training - Week 1 Day 1
 
-## SQL Basics Practice Queries & Solutions
+## SQL Practice Queries & Solutions
 
-This repository contains SQL practice queries, outputs, and detailed explanations for **Databricks Training - Week 1 Day 1**.
+This repository contains SQL practice queries and detailed solutions for **Databricks Training - Week 1 Day 1**.
 
 ## Topics Covered
 
@@ -13,7 +12,6 @@ This repository contains SQL practice queries, outputs, and detailed explanation
 - LIKE Operator
 - AND / OR Conditions
 - Logical Operators
-- String Matching
 
 ---
 
@@ -213,7 +211,7 @@ WHERE salary > 60000 OR age < 30;
 
 | Section | Queries |
 |----------|----------|
-| Basic SELECT | 5 |
+| Basic SELECT Queries | 5 |
 | WHERE Clause | 10 |
 | LIKE Operator | 10 |
 | Combined Conditions | 7 |
@@ -223,67 +221,13 @@ WHERE salary > 60000 OR age < 30;
 
 # Key Learnings
 
-## SELECT Statement
-- Retrieve all columns using `SELECT *`
-- Retrieve specific columns for better performance
-
-## WHERE Clause
-- Filter records using conditions
-- Use operators like:
-  - `=`
-  - `<>`
-  - `>`
-  - `<`
-  - `BETWEEN`
-  - `IN`
-
-## LIKE Operator
-- `%` → matches multiple characters
-- `_` → matches exactly one character
-
-Examples:
-```sql
-LIKE 'J%'
-LIKE '%a%'
-LIKE '_o%'
-```
-
-## Logical Operators
-- `AND`
-- `OR`
-- `NOT`
-
-Use parentheses for complex conditions:
-```sql
-(department_id = 1 OR department_id = 4)
-AND salary > 50000;
-```
-
----
-
-# Repository Structure
-
-```text
-databricks-training/
-│
-├── Week-1/
-│   ├── Day-1/
-│   │   ├── queries.sql
-│   │   ├── solutions.txt
-│   │   └── README.md
-│   │
-│   └── Day-2/
-```
-
----
-
-# How to Run
-
-1. Open Databricks SQL or DB Fiddle
-2. Create database tables
-3. Insert sample data
-4. Execute SQL queries
-5. Verify outputs and explanations
+- SQL SELECT statements
+- Filtering data using WHERE clause
+- Using comparison operators
+- Pattern matching with LIKE
+- Using logical operators AND / OR
+- Writing optimized SQL queries
+- Understanding relational database basics
 
 ---
 
@@ -296,15 +240,38 @@ databricks-training/
 
 ---
 
+# Repository Structure
+
+```text
+databricks-training/
+│
+├── Week-1/
+│   ├── Day-1/
+│   │   ├── queries.sql
+│   │   ├── solutions.sql
+│   │   └── README.md
+```
+
+---
+
+# How to Run
+
+1. Open Databricks SQL or DB Fiddle
+2. Copy schema creation scripts
+3. Run INSERT statements
+4. Execute practice queries
+5. Analyze outputs and explanations
+
+---
+
 # Learning Outcome
 
 After completing this practice set, you will understand:
-
 - SQL basic syntax
 - Data retrieval using SELECT
-- Filtering data using WHERE
+- Filtering records using WHERE
 - Pattern matching using LIKE
-- Combining conditions using AND / OR
+- Using logical operators
 - Writing efficient SQL queries
 
 ---
