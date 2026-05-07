@@ -312,7 +312,3 @@ After completing this practice set, you will understand:
 # Author
 
 Nithin Vanka
-
-
-Detailed solutions and outputs: :contentReference[oaicite:1]{index=1}
-````
