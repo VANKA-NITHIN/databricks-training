@@ -1,429 +1,318 @@
-# 📅 Week 1 - Day 1: SQL Fundamentals
+````markdown id="9w2k1m"
+# Databricks Training - Week 1 Day 1
 
-**Date:** May 6, 2026  
-**Topic:** SQL Basics, SELECT, WHERE, String Matching, and Introduction to Queries  
-**Duration:** Full Day Training Session
+## SQL Basics Practice Queries & Solutions
 
----
+This repository contains SQL practice queries, outputs, and detailed explanations for **Databricks Training - Week 1 Day 1**.
 
-## 🎯 Learning Objectives
+## Topics Covered
 
-
-
-- ✅ Basic SQL SELECT statements
-- ✅ WHERE clause for filtering data
-- ✅ String matching with LIKE operator
-- ✅ Basic aggregate functions (COUNT, SUM, AVG, MIN, MAX)
-- ✅ Introduction to database schema and tables
-- ✅ Query structure and best practices
-- ✅ DB Fiddle platform usage
+- SQL Basics
+- SELECT Statement
+- WHERE Clause
+- LIKE Operator
+- AND / OR Conditions
+- Logical Operators
+- String Matching
 
 ---
 
-## 📚 Topics Covered Today
+# Database Schema
 
-### **1. SQL Basics**
+## Department Table
 
-**What is SQL?**
-- Structured Query Language
-- Used to communicate with databases
-- Retrieve, insert, update, delete data
-- Organize and analyze data
-
-**Why SQL?**
-- Industry standard for data manipulation
-- Used in all data engineering roles
-- Essential for Databricks and Apache Spark
-- Foundation for advanced concepts
-
----
-
-### **2. SELECT Statement**
-
-**Basic Syntax:**
 ```sql
-SELECT column1, column2, ... 
-FROM table_name;
+CREATE TABLE Department (
+    dept_id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
 ```
 
-**Example:**
+## Employee Table
+
 ```sql
--- Get all employees
+CREATE TABLE Employee (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    salary DECIMAL(10, 2),
+    department_id INT,
+    hire_date DATE,
+    FOREIGN KEY (department_id) REFERENCES Department(dept_id)
+);
+```
+
+## Project Table
+
+```sql
+CREATE TABLE Project (
+    project_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT,
+    budget DECIMAL(15, 2),
+    FOREIGN KEY (department_id) REFERENCES Department(dept_id)
+);
+```
+
+---
+
+# Sample Data
+
+## Departments
+
+```sql
+INSERT INTO Department VALUES
+(1, 'IT'),
+(2, 'HR'),
+(3, 'Finance'),
+(4, 'Marketing');
+```
+
+## Employees
+
+```sql
+INSERT INTO Employee VALUES
+(1, 'John Doe', 28, 50000.00, 1, '2020-01-15'),
+(2, 'Jane Smith', 34, 60000.00, 2, '2019-07-23'),
+(3, 'Bob Brown', 45, 80000.00, 1, '2018-02-12'),
+(4, 'Alice Blue', 25, 45000.00, 3, '2021-03-22'),
+(5, 'Charlie P.', 29, 50000.00, 2, '2019-12-01'),
+(6, 'David Green', 38, 70000.00, 4, '2022-05-18'),
+(7, 'Eve Black', 40, 55000.00, 3, '2021-08-30');
+```
+
+## Projects
+
+```sql
+INSERT INTO Project VALUES
+(1, 'Project Alpha', 1, 100000.00),
+(2, 'Project Beta', 2, 80000.00),
+(3, 'Project Gamma', 1, 120000.00),
+(4, 'Project Delta', 3, 90000.00),
+(5, 'Project Epsilon', 4, 110000.00),
+(6, 'Project Zeta', 4, 95000.00),
+(7, 'Project Eta', 3, 85000.00);
+```
+
+---
+
+# SQL Concepts Practiced
+
+## 1. Basic SELECT Queries
+
+### Get all employee records
+
+```sql
 SELECT * FROM Employee;
+```
 
--- Get specific columns
+### Get employee names and salaries
+
+```sql
 SELECT name, salary FROM Employee;
-
--- Get employee names and ages
-SELECT name, age FROM Employee;
 ```
 
-**Key Points:**
-- `SELECT *` returns all columns
-- Use specific column names to retrieve only needed data
-- Improves performance (less data transferred)
-- More readable code
+### Get all departments
+
+```sql
+SELECT * FROM Department;
+```
 
 ---
 
-### **3. WHERE Clause**
+## 2. WHERE Clause
 
-**Purpose:** Filter rows based on conditions
+### Employees older than 30
 
-**Syntax:**
 ```sql
-SELECT column1, column2, ... 
-FROM table_name 
-WHERE condition;
-```
-
-**Operators Used:**
-- `=` Equal to
-- `>` Greater than
-- `<` Less than
-- `>=` Greater than or equal
-- `<=` Less than or equal
-- `<>` or `!=` Not equal to
-
-**Examples:**
-```sql
--- Find employees older than 30
-SELECT * FROM Employee 
+SELECT * FROM Employee
 WHERE age > 30;
+```
 
--- Find employees with salary exactly 50000
-SELECT * FROM Employee 
-WHERE salary = 50000;
+### Employees with salary greater than 50000
 
--- Find employees NOT in department 1
-SELECT * FROM Employee 
-WHERE department_id <> 1;
+```sql
+SELECT * FROM Employee
+WHERE salary > 50000;
+```
 
--- Find employees hired after 2020
-SELECT * FROM Employee 
-WHERE hire_date > '2020-01-01';
+### Employees in department 1
+
+```sql
+SELECT * FROM Employee
+WHERE department_id = 1;
+```
+
+### Employees with salary between 50000 and 70000
+
+```sql
+SELECT * FROM Employee
+WHERE salary BETWEEN 50000 AND 70000;
 ```
 
 ---
 
-### **4. String Matching with LIKE**
+## 3. LIKE Operator
 
-**Purpose:** Search for patterns in text data
+### Names starting with J
 
-**Wildcards:**
-- `%` Represents any number of characters
-- `_` Represents a single character
-
-**Syntax:**
 ```sql
-SELECT * FROM table_name 
-WHERE column LIKE pattern;
+SELECT * FROM Employee
+WHERE name LIKE 'J%';
 ```
 
-**Examples:**
+### Names containing a
+
 ```sql
--- Names starting with 'J'
-SELECT * FROM Employee 
-WHERE name LIKE 'J%';
-
--- Names ending with 'e'
-SELECT * FROM Employee 
-WHERE name LIKE '%e';
-
--- Names containing 'a'
-SELECT * FROM Employee 
+SELECT * FROM Employee
 WHERE name LIKE '%a%';
+```
 
--- Exactly 5 character names
-SELECT * FROM Employee 
-WHERE name LIKE '_____';
+### Names ending with e
 
--- Second character is 'o'
-SELECT * FROM Employee 
+```sql
+SELECT * FROM Employee
+WHERE name LIKE '%e';
+```
+
+### Second character is o
+
+```sql
+SELECT * FROM Employee
 WHERE name LIKE '_o%';
 ```
 
 ---
 
-### **5. Introduction to Aggregate Functions**
+## 4. Combined Conditions
 
-**What are Aggregates?**
-- Functions that perform calculations on data
-- Return single value from multiple rows
-- Used with numeric columns
+### Age > 30 AND salary > 60000
 
-**Common Functions:**
-
-#### **COUNT()** - Count rows
 ```sql
--- Count total employees
-SELECT COUNT(*) FROM Employee;
-
--- Count employees in department 1
-SELECT COUNT(*) FROM Employee 
-WHERE department_id = 1;
+SELECT * FROM Employee
+WHERE age > 30 AND salary > 60000;
 ```
 
-#### **SUM()** - Add values
+### Department 1 OR Department 2
+
 ```sql
--- Total salary spent
-SELECT SUM(salary) FROM Employee;
-
--- Total salary per department
-SELECT department_id, SUM(salary) 
-FROM Employee 
-GROUP BY department_id;
+SELECT * FROM Employee
+WHERE department_id = 1 OR department_id = 2;
 ```
 
-#### **AVG()** - Average value
+### Salary > 60000 OR age < 30
+
 ```sql
--- Average employee salary
-SELECT AVG(salary) FROM Employee;
-
--- Average age
-SELECT AVG(age) FROM Employee;
+SELECT * FROM Employee
+WHERE salary > 60000 OR age < 30;
 ```
 
-#### **MIN() / MAX()** - Minimum / Maximum
+---
+
+# Total Queries Practiced
+
+| Section | Queries |
+|----------|----------|
+| Basic SELECT | 5 |
+| WHERE Clause | 10 |
+| LIKE Operator | 10 |
+| Combined Conditions | 7 |
+| Total | 32 |
+
+---
+
+# Key Learnings
+
+## SELECT Statement
+- Retrieve all columns using `SELECT *`
+- Retrieve specific columns for better performance
+
+## WHERE Clause
+- Filter records using conditions
+- Use operators like:
+  - `=`
+  - `<>`
+  - `>`
+  - `<`
+  - `BETWEEN`
+  - `IN`
+
+## LIKE Operator
+- `%` → matches multiple characters
+- `_` → matches exactly one character
+
+Examples:
 ```sql
--- Lowest salary
-SELECT MIN(salary) FROM Employee;
-
--- Highest salary
-SELECT MAX(salary) FROM Employee;
-
--- Youngest employee
-SELECT MIN(age) FROM Employee;
-
--- Oldest employee
-SELECT MAX(age) FROM Employee;
+LIKE 'J%'
+LIKE '%a%'
+LIKE '_o%'
 ```
 
----
+## Logical Operators
+- `AND`
+- `OR`
+- `NOT`
 
-## 🗄️ Database Schema
-
-### **Employee Table**
-| Column | Type | Description |
-|--------|------|-------------|
-| emp_id | INT | Employee ID (Primary Key) |
-| name | VARCHAR(50) | Employee name |
-| age | INT | Employee age |
-| salary | DECIMAL(10,2) | Annual salary |
-| department_id | INT | Department ID (Foreign Key) |
-| hire_date | DATE | Hiring date |
-
-**Sample Data:**
-```
-emp_id | name       | age | salary    | department_id | hire_date
--------|------------|-----|-----------|---------------|----------
-1      | John Doe   | 28  | 50000.00  | 1             | 2020-01-15
-2      | Jane Smith | 34  | 60000.00  | 2             | 2019-07-23
-3      | Bob Brown  | 45  | 80000.00  | 1             | 2018-02-12
-```
-
-### **Department Table**
-| Column | Type | Description |
-|--------|------|-------------|
-| dept_id | INT | Department ID (Primary Key) |
-| name | VARCHAR(50) | Department name |
-
-**Sample Data:**
-```
-dept_id | name
---------|----------
-1       | IT
-2       | HR
-3       | Finance
-4       | Marketing
-```
-
-### **Project Table**
-| Column | Type | Description |
-|--------|------|-------------|
-| project_id | INT | Project ID (Primary Key) |
-| name | VARCHAR(50) | Project name |
-| department_id | INT | Department ID (Foreign Key) |
-| budget | DECIMAL(12,2) | Project budget |
-
----
-
-## ✅ Queries Practiced Today
-
-### **Category 1: Basic SELECT (5 Queries)**
-- [x] Q1: Select all employee records
-- [x] Q2: Select specific columns
-- [x] Q3: Select all departments
-- [x] Q4: Select project information
-- [x] Q5: Count total employees
-
-### **Category 2: WHERE Clause (10 Queries)**
-- [x] Q6: Find employees older than 30
-- [x] Q7: Find employees with salary > 50000
-- [x] Q8: Find employees in specific department
-- [x] Q9: Find employees hired in specific year
-- [x] Q10: Find employees by age range
-- [x] Q11: Find employees by salary range
-- [x] Q12: Find employees NOT in department 1
-- [x] Q13: Find employees hired before 2020
-- [x] Q14: Find employees hired after specific date
-- [x] Q15: Complex WHERE with multiple conditions
-
-### **Category 3: String Matching (8 Queries)**
-- [x] Q16: Names starting with 'J'
-- [x] Q17: Names ending with 'e'
-- [x] Q18: Names containing 'a'
-- [x] Q19: Names with specific pattern
-- [x] Q20: Names of certain length
-- [x] Q21: Case-insensitive matching
-- [x] Q22: Multiple LIKE conditions
-- [x] Q23: NOT LIKE pattern
-
-### **Category 4: Basic Aggregates (7 Queries)**
-- [x] Q24: Count total employees
-- [x] Q25: Sum of all salaries
-- [x] Q26: Average salary
-- [x] Q27: Minimum salary
-- [x] Q28: Maximum salary
-- [x] Q29: Count employees per department
-- [x] Q30: Average age of employees
-
----
-
-## 🧠 Key SQL Concepts
-
-### **1. Data Types**
-- `INT` - Whole numbers
-- `VARCHAR(n)` - Text up to n characters
-- `DECIMAL(m,n)` - Numbers with decimals
-- `DATE` - Date values (YYYY-MM-DD)
-
-### **2. NULL Values**
-- Represents missing or unknown data
-- `IS NULL` and `IS NOT NULL` operators
-- Different from empty string or 0
-
-### **3. Comments in SQL**
+Use parentheses for complex conditions:
 ```sql
--- Single line comment
-/* Multi-line
-   comment */
-```
-
-### **4. Case Sensitivity**
-- SQL keywords (SELECT, WHERE) - case insensitive
-- Table/column names - depends on database
-- String values - case sensitive in WHERE clause
-
-### **5. Query Execution Order**
-1. `FROM` - Identify table
-2. `WHERE` - Filter rows
-3. `SELECT` - Choose columns
-4. `ORDER BY` - Sort results
-
----
-
-## 📊 Sample Execution Results
-
-**Q1: SELECT * FROM Employee;**
-```
-Result: 7 rows showing all employee data
-```
-
-**Q3: SELECT * FROM Employee WHERE age > 30;**
-```
-Result: 4 rows (Jane Smith, Bob Brown, David Green, Eve Black)
-```
-
-**Q16: SELECT * FROM Employee WHERE name LIKE 'J%';**
-```
-Result: 2 rows (John Doe, Jane Smith)
-```
-
-**Q26: SELECT AVG(salary) FROM Employee;**
-```
-Result: 1 row with value 58928.57
+(department_id = 1 OR department_id = 4)
+AND salary > 50000;
 ```
 
 ---
 
-## 📺 YouTube Videos Watched
+# Repository Structure
 
-**Video 1: SQL Basics & SELECT Statement** ⏳  
-- Introduction to SQL
-- SELECT syntax
-- Different types of SELECT queries
-
-**Video 2: WHERE Clause & Filtering** ⏳  
-- WHERE clause syntax
-- Comparison operators
-- Logical operators (AND, OR, NOT)
-
----
-
-## 🔍 Observations & Learnings
-
-### **What I Learned:**
-1. SQL is simpler than expected
-2. Query structure is logical and easy to follow
-3. Filtering with WHERE is powerful
-4. LIKE operator is very useful for text search
-5. Aggregate functions summarize data effectively
-
-### **Challenges Faced:**
-- Understanding WHERE clause syntax initially
-- Getting LIKE patterns right
-- Remembering proper date format (YYYY-MM-DD)
-- Knowing when to use quotes for strings
-
-### **Key Takeaways:**
-1. Always specify columns instead of SELECT *
-2. Use WHERE to filter data early
-3. Test queries with small dataset first
-4. Comment your code for clarity
-5. Practice is key to mastery
+```text
+databricks-training/
+│
+├── Week-1/
+│   ├── Day-1/
+│   │   ├── queries.sql
+│   │   ├── solutions.txt
+│   │   └── README.md
+│   │
+│   └── Day-2/
+```
 
 ---
 
-## 🚀 Next Steps (Day 2)
+# How to Run
 
-**Tomorrow we'll cover:**
-- ORDER BY - Sorting data
-- Aggregate functions with GROUP BY
-- HAVING clause for filtering groups
-- COUNT, SUM, AVG calculations
-- Introduction to JOINs
-
-**Preparation:**
-- Review today's queries
-- Practice 2-3 queries again
-- Watch videos 3-4 from playlist
+1. Open Databricks SQL or DB Fiddle
+2. Create database tables
+3. Insert sample data
+4. Execute SQL queries
+5. Verify outputs and explanations
 
 ---
 
-## 📝 Resources Used
+# Technologies Used
 
-| Resource | Link |
-|----------|------|
-| DB Fiddle | https://www.db-fiddle.com/ |
-| SQL Tutorial Playlist | [YouTube](https://youtube.com/playlist?list=PLrZbzHGc7iABQ60q4X5IJOYaBM-ULmrVe) |
-| Database Schema | datacreation.sql |
+- SQL
+- Databricks SQL
+- DB Fiddle
+- Relational Database Concepts
 
 ---
 
-## ✨ Summary
+# Learning Outcome
 
-**Date:** May 6, 2026  
-**Duration:** Full day  
-**Topics Completed:** 6 major topics  
-**Queries Practiced:** 30+  
-**Status:** ✅ COMPLETED
+After completing this practice set, you will understand:
 
-### **What This Folder Contains:**
-- `README.md` - This learning guide
-- `queries.sql` - 65 practice queries
-- `solutions.sql` - Complete solutions with explanations
-- `output.txt` - Sample execution results
+- SQL basic syntax
+- Data retrieval using SELECT
+- Filtering data using WHERE
+- Pattern matching using LIKE
+- Combining conditions using AND / OR
+- Writing efficient SQL queries
 
-**Last Updated:** 2026-05-06  
+---
 
+# Author
+
+Nithin Vanka
+
+
+Detailed solutions and outputs: :contentReference[oaicite:1]{index=1}
+````
